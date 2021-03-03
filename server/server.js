@@ -1,9 +1,26 @@
-const app = require('./app');
+require("dotenv").config();
+const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const routes = require("./routes");
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Set the PORT
-const PORT = process.env.PORT || 3030;
+// Define middleware here
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+// Add routes, both API and view
+app.use(routes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log('App running on port ' + PORT + '!');
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
+// Start the API server
+app.listen(PORT, function() {
+  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
