@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/tonythetiger323/MERN-todo/issues"
   },
-  "homepage": "https://github.com/tonythetiger323/MERN-todo#readme"
+  "homepage": "https://github.com/tonythetiger323/MERN-todo#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18"
+  }
 }
